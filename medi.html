@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="detect.css">
+    <style>
+        :root {
+            --white: #e9e9e9;
+            --gray: #333;
+            --blue: #9767F6;
+            --lightblue: #008997;
+            --button-radius: 0.7rem;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            background: var(--white);
+            font-family: 'Lexend', sans-serif;
+            margin: 0;
+            height: 150vh;
+        }
+
+        .container {
+            background-color: var(--white);
+            border-radius: var(--button-radius);
+            box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25), 0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .audio-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .description-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gray);
+        }
+
+        .back-button-container {
+            position: absolute;
+    top: 5px;
+    left: 10px;
+        }
+
+        .back-button {
+            font-family: 'Lexend', sans-serif; 
+            background-color: var(--blue);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--button-radius);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .form__title {
+            font-weight: 300;
+            margin: 0 0 1.25rem;
+        }
+
+        .form input[type="text"],
+        .form input[type="time"],
+        .form button {
+            width: 100%;
+            margin: 0.5rem 0;
+            border-radius: var(--button-radius);
+            border: none;
+        }
+
+        .form input[type="text"],
+        .form input[type="time"],
+        .form select {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+        }
+
+        .form button {
+            font-family: 'Lexend', sans-serif; 
+            background-color: #9767F6;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin: 8px 2px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 80ms ease-in;
+        }
+
+        .form button:active {
+            transform: scale(0.95);
+        }
+
+        .form button:focus {
+            outline: none;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+
+        .day {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .day-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .schedule-item {
+            background: #e3f2fd;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="back-button-container">
+        <button class="back-button" onclick="window.location.href='home.html'">Back</button>
+    </div>
+    <div class="container">
+        <h1 class="form__title">Add Medication</h1>
+        <form id="medicine-form" class="form">
+            <label for="medicine-name">Medicine Name:</label>
+            <input type="text" id="medicine-name" name="medicine-name" placeholder="Enter medicine name" required>
+            <br>
+            <label for="dosage">Dosage:</label>
+            <input type="text" id="dosage" name="dosage" placeholder="Enter dosage" required>
+            <br>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <br>
+            <label for="day">Day:</label>
+            <select id="day" name="day" required>
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select>
+            <br>
+            <button type="submit">Add Medication</button>
+        </form>
+        <div class="calendar" id="schedule">
+            <div class="day" id="sunday"><div class="day-header">Sunday</div></div>
+            <div class="day" id="monday"><div class="day-header">Monday</div></div>
+            <div class="day" id="tuesday"><div class="day-header">Tuesday</div></div>
+            <div class="day" id="wednesday"><div class="day-header">Wednesday</div></div>
+            <div class="day" id="thursday"><div class="day-header">Thursday</div></div>
+            <div class="day" id="friday"><div class="day-header">Friday</div></div>
+            <div class="day" id="saturday"><div class="day-header">Saturday</div></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('medicine-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('medicine-name').value;
+            const dosage = document.getElementById('dosage').value;
+            const time = document.getElementById('time').value;
+            const day = document.getElementById('day').value;
+
+            const medicine = {
+                name,
+                dosage,
+                time,
+                day
+            };
+
+            let medicines = JSON.parse(localStorage.getItem('medicines')) || [];
+            medicines.push(medicine);
+            localStorage.setItem('medicines', JSON.stringify(medicines));
+
+            addMedicineToSchedule(medicine);
+            setReminder(medicine);
+
+            this.reset();
+        });
+
+        function addMedicineToSchedule(medicine) {
+            const dayDiv = document.getElementById(medicine.day.toLowerCase());
+            const div = document.createElement('div');
+            div.classList.add('schedule-item');
+            div.innerHTML = `<strong>${medicine.name}</strong> - ${medicine.dosage} at ${medicine.time}`;
+            dayDiv.appendChild(div);
+        }
+
+        function setReminder(medicine) {
+            const now = new Date();
+            const reminderTime = new Date();
+            const [hours, minutes] = medicine.time.split(':');
+            reminderTime.setHours(hours, minutes, 0, 0);
+
+            if (reminderTime < now) {
+                reminderTime.setDate(reminderTime.getDate() + 1);
+            }
+
+            const timeout = reminderTime - now;
+            setTimeout(() => {
+                playReminder(medicine);
+            }, timeout);
+        }
+
+        function playReminder(medicine) {
+            const message = `It's time to take your medicine: ${medicine.name}, ${medicine.dosage}`;
+            const speech = new SpeechSynthesisUtterance(message);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const medicines = JSON.parse(localStorage.getItem('medicines')) || [];
+            medicines.forEach(medicine => {
+                addMedicineToSchedule(medicine);
+                setReminder(medicine);
+            });
+        });
+    </script>
+</body>
+</html>

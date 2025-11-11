@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightway</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lexend', sans-serif;
+      background: rgb(224, 222, 222);
+      color: #1A2D59;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      justify-content: space-between;
+    }
+    .navbar {
+      width: 100%;
+      background-color: #1A2D59;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    .navbar a:hover {
+      background-color: #fffdfd;
+      color: black;
+    }
+    .main-content {
+      margin-top: 70px; /* Adjusted for fixed navbar */
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .main-content h1 {
+      font-size: 3em;
+      margin: 20px 0;
+    }
+    .main-content p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .footer {
+      width: 100%;
+      background-color: #1A2D59;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="home.html">Home</a>
+    <a href="index.html">Vision</a>
+    <a href="medi.html">Schedule</a>
+    <a href="text.html">Text</a>
+  </div>
+  
+  <div class="main-content">
+    <h1>Lightway</h1>
+    <p>AI app to help the visually impaired and neurodivergent.</p>
+    <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+    <div class="commonninja_component pid-e2dec359-a346-4bbf-a56d-4b9819fc1900"></div>
+  </div>
+
+  <div class="footer">
+    &copy; 2024 Lightway. Mini Project Sem 6
+  </div>
+</body>
+</html>
